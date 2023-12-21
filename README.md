@@ -8,5 +8,5 @@
 
 ```
 source build.sh     #Unix系
-./build.ps1          #PowerShell
+./build.ps1         #PowerShell
 ```
