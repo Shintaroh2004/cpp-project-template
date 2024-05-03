@@ -1,0 +1,11 @@
+double f1(double x);
+double f1_1(double x);
+double f2(double x);
+double f2_1(double x);
+double f2_2(double x);
+double newton(double x);
+double secant(double x1,double x2);
+double bailey(double x);
+void run3_1();
+void run3_2();
+void run3_3();

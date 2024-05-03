@@ -7,9 +7,14 @@ project(
     LANGUAGES CXX
 )
 
-add_library(lib STATIC ./src/lib.cpp)
-target_compile_features(lib PRIVATE cxx_std_20)
-target_include_directories(lib PUBLIC ./include)
+include_directories(./include)
+
+add_library(lib STATIC 
+    ./src/lib.cpp
+    ./src/work2.cpp
+    ./src/work3.cpp
+)
 
 add_executable(main main.cpp)
+target_compile_features(main PUBLIC cxx_std_20)
 target_link_libraries(main lib)
