@@ -1,23 +1,49 @@
 #include <iostream>
+#include "csv.h"
 #include "../include/lib.hpp"
 
-Person::Person(int age,std::string name)
+Option::Option(std::string path)
 {
-    this->age=age;
-    this->name=name;
+    io::CSVReader<5> in(path);
+    in.read_header(io::ignore_extra_column,"Port","Baud Rate","Data Size","Parity","Stop Bit");
+    std::string port;
+    int baud_rate;
+    uint8_t data_size;
+    uint8_t parity;
+    std::string stop_bit;
+    while(in.read_row(port,baud_rate,data_size,parity,stop_bit))
+    {
+        this->_port=port;
+        this->_baud_rate=baud_rate;
+        this->_data_size=data_size;
+        this->_parity=parity;
+        this->_stop_bit=stop_bit;
+        break;
+    }
+    this->is_readed=true;
+};
+
+std::string Option::get_port()
+{
+    return this->_port;
 }
 
-void Person::hello(void)
+int Option::get_baud_rate()
 {
-    std::cout<<"hello world"<<std::endl;
+    return this->_baud_rate;
 }
 
-void Person::introduce(void)
+int Option::get_data_size()
 {
-    std::cout<<"my name is "<<this->name<<std::endl;
+    return this->_data_size;
 }
 
-void Person::how_old(void)
+int Option::get_parity()
 {
-    std::cout<<"I'm "<<this->age<<" years old"<<std::endl;
+    return this->_parity;
+}
+
+std::string Option::get_stop_bit()
+{
+    return this->_stop_bit;
 }

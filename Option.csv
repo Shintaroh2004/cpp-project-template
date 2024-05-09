@@ -1,0 +1,2 @@
+Port,Baud Rate,Data Size,Parity,Stop Bit
+COM12,115200,8,0,1
