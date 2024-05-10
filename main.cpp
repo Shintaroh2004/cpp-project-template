@@ -7,7 +7,7 @@
 #include "csv.h"
 #include "include/lib.hpp"
 
-#define VERSION "1.0.0"
+#define VERSION "1.1.0"
 
 using namespace boost::asio;
 
@@ -128,40 +128,56 @@ int main(int argc, char *argv[])
 
   try 
   {
-    int uart_mode = stoi(uart_mode_str);
-    if (uart_mode!=1 && uart_mode!=2 && uart_mode!=3)
+    try
     {
-      std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
-      uart_mode=1;
+      int uart_mode = stoi(uart_mode_str);
+      if (uart_mode!=1 && uart_mode!=2 && uart_mode!=3)
+      {
+        std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
+        uart_mode=1;
+      }
+      switch (uart_mode)
+      {
+        case 1:
+          uart_ping_pong(serial);
+          break;
+        case 2:
+          uart_read_only(serial);
+          break;
+        case 3:
+          uart_write_only(serial);
+          break;
+      }
     }
-    switch (uart_mode)
+    catch(boost::system::system_error e)
     {
-      case 1:
-        uart_ping_pong(serial);
-        break;
-      case 2:
-        uart_read_only(serial);
-        break;
-      case 3:
-        uart_write_only(serial);
-        break;
+      std::cout<<"Error Occured!! : "<<e.what()<<std::endl;
+      exit(EXIT_FAILURE);
     }
   }
   catch (std::invalid_argument& e)
   {
     std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
     int uart_mode=1;
-    switch (uart_mode)
+    try
     {
-      case 1:
-        uart_ping_pong(serial);
-        break;
-      case 2:
-        uart_read_only(serial);
-        break;
-      case 3:
-        uart_write_only(serial);
-        break;
+      switch (uart_mode)
+      {
+        case 1:
+          uart_ping_pong(serial);
+          break;
+        case 2:
+          uart_read_only(serial);
+          break;
+        case 3:
+          uart_write_only(serial);
+          break;
+      } 
+    }
+    catch(boost::system::system_error e)
+    {
+      std::cout<<"Error Occured!! : "<<e.what()<<std::endl;
+      exit(EXIT_FAILURE);
     }
   }
 
