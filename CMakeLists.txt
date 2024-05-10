@@ -17,6 +17,7 @@ find_package(Boost REQUIRED COMPONENTS headers)
 add_library(lib STATIC ./src/lib.cpp)
 target_compile_features(lib PRIVATE cxx_std_20)
 target_include_directories(lib PUBLIC ./include ./thirdparty/fast-cpp-csv-parser)
+target_link_libraries(lib Boost::headers)
 
 add_executable(uutil main.cpp)
 target_link_libraries(uutil lib Boost::headers)

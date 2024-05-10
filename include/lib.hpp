@@ -1,4 +1,7 @@
 #include <iostream>
+#include <boost/asio.hpp>
+
+using namespace boost::asio;
 
 class Option
 {
@@ -17,3 +20,7 @@ class Option
         int get_parity();
         std::string get_stop_bit();
 };
+
+void uart_ping_pong(serial_port& serial);
+void uart_read_only(serial_port& serial);
+void uart_write_only(serial_port& serial);

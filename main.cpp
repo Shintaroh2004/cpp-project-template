@@ -52,15 +52,15 @@ int main(int argc, char *argv[])
 
     if(!is_set_csv)
     {
-      std::cout<<"Select Port (ex: COM3) : ";
+      std::cout<<"Select Port (ex: COM3) >> ";
       std::cin>>port;
-      std::cout<<"Select Baudrate (ex: 9600) : ";
+      std::cout<<"Select Baudrate (ex: 9600) >> ";
       std::cin>>baud_rate;
-      std::cout<<"Select Data Size (ex: 8) : ";
+      std::cout<<"Select Data Size (ex: 8) >> ";
       std::cin>>data_size;
-      std::cout<<"Select Parity (ex: 0) : ";
+      std::cout<<"Select Parity (ex: 0) >> ";
       std::cin>>parity;
-      std::cout<<"Select Stop Bit (ex: 1) Select List [1, 1.5 ,2] : ";
+      std::cout<<"Select Stop Bit (ex: 1) Select List [1, 1.5 ,2] >> ";
       std::cin>>stop_bit;
     }
 
@@ -118,27 +118,51 @@ int main(int argc, char *argv[])
     exit(EXIT_FAILURE);
   }
 
-  std::cout<<"If you want to exit , input 'exit'\n"<<std::endl;
+  std::string uart_mode_str;
+  std::cout<<"UART Mode Setting"<<std::endl;
+  std::cout<<"Ping Pong: 1"<<std::endl;
+  std::cout<<"Read Only: 2"<<std::endl;
+  std::cout<<"Write Only: 3"<<std::endl;
+  std::cout<<">>";
+  std::cin>>uart_mode_str;
 
-  while (true)
+  try 
   {
-    std::string input;
-    std::cout<<"input:";
-    std::cin>>input;
-
-    if (input=="exit")
+    int uart_mode = stoi(uart_mode_str);
+    if (uart_mode!=1 && uart_mode!=2 && uart_mode!=3)
     {
-      std::this_thread::sleep_for(std::chrono::milliseconds(10));
-      break;
+      std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
+      uart_mode=1;
     }
-
-    boost::asio::write(serial, boost::asio::buffer(input));
-
-    char data[512];
-    size_t uart_message=boost::asio::read(serial,boost::asio::buffer(data,input.length()));
-    std::string uart(data,uart_message);
-    std::cout<<uart<<std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    switch (uart_mode)
+    {
+      case 1:
+        uart_ping_pong(serial);
+        break;
+      case 2:
+        uart_read_only(serial);
+        break;
+      case 3:
+        uart_write_only(serial);
+        break;
+    }
+  }
+  catch (std::invalid_argument& e)
+  {
+    std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
+    int uart_mode=1;
+    switch (uart_mode)
+    {
+      case 1:
+        uart_ping_pong(serial);
+        break;
+      case 2:
+        uart_read_only(serial);
+        break;
+      case 3:
+        uart_write_only(serial);
+        break;
+    }
   }
 
   serial.close();
