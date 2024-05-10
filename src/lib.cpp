@@ -59,13 +59,14 @@ void uart_ping_pong(serial_port& serial)
     std::string input;
     std::cout<<"input >> ";
     std::cin>>input;
+    input+="\n";
 
-    if (input=="exit")
+    if (input=="exit\n")
     {
       break;
     }
 
-    boost::asio::write(serial, boost::asio::buffer(input+"\n"));
+    boost::asio::write(serial, boost::asio::buffer(input));
     std::cout<<"Send data: "<<input<<std::endl;
     std::future<void> f = std::async([input,&serial](){
       boost::asio::streambuf buf;
@@ -111,8 +112,9 @@ void uart_write_only(serial_port& serial)
     std::string input;
     std::cout<<"input >> ";
     std::cin>>input;
+    input+="\n";
 
-    if (input=="exit")
+    if (input=="exit\n")
     {
       break;
     }
