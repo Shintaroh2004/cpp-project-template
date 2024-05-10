@@ -151,6 +151,7 @@ int main(int argc, char *argv[])
     }
     catch(boost::system::system_error e)
     {
+      serial.close();
       std::cout<<"Error Occured!! : "<<e.what()<<std::endl;
       exit(EXIT_FAILURE);
     }
@@ -176,6 +177,7 @@ int main(int argc, char *argv[])
     }
     catch(boost::system::system_error e)
     {
+      serial.close();
       std::cout<<"Error Occured!! : "<<e.what()<<std::endl;
       exit(EXIT_FAILURE);
     }
