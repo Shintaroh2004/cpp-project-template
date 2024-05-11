@@ -7,7 +7,7 @@
 #include "csv.h"
 #include "include/lib.hpp"
 
-#define VERSION "1.1.0"
+#define VERSION "1.2.0"
 
 using namespace boost::asio;
 
@@ -32,6 +32,18 @@ int main(int argc, char *argv[])
       if (arg_str=="--version" || arg_str=="-v")
       {
         std::cout<<VERSION<<std::endl;
+        exit(EXIT_SUCCESS);
+      }
+      else if (arg_str=="--help" || arg_str=="-h")
+      {
+        std::cout<<"\nuart_util.exe [OPTION or CSV Path]\n"<<std::endl;
+        std::cout<<"[OPTION]\n"<<std::endl;
+        std::cout<<"--version -v : Display this app's version."<<std::endl;
+        std::cout<<"--help -h : Display helps.\n"<<std::endl;
+        std::cout<<"[CSV Path]\n"<<std::endl;
+        std::cout<<"EX:) Option.csv\n"<<std::endl;
+        std::cout<<"You have to set these headers and data in csv file.\n"<<std::endl;
+        std::cout<<"[Port , Baud Rate , Data Size , Parity , Stop Bit]\n"<<std::endl;
         exit(EXIT_SUCCESS);
       }
       else
