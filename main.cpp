@@ -7,7 +7,7 @@
 #include "csv.h"
 #include "include/lib.hpp"
 
-#define VERSION "1.2.0"
+#define VERSION "1.2.1"
 
 using namespace boost::asio;
 
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
   catch (io::error::can_not_open_file e) 
   {
     std::cout<<"Reading CSV Error: "<<e.what()<<std::endl;
-    std::cout<<"Or Not Such Command."<<e.what()<<std::endl;
+    std::cout<<"Or Not Such Command."<<std::endl;
     exit(EXIT_FAILURE);
   }
   catch (io::error::line_length_limit_exceeded e)
@@ -148,6 +148,7 @@ int main(int argc, char *argv[])
         std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
         uart_mode=1;
       }
+      std::cout<<"If you want to exit, Please input 'exit'."<<std::endl;
       switch (uart_mode)
       {
         case 1:
@@ -172,6 +173,7 @@ int main(int argc, char *argv[])
   {
     std::cout<<"Set wrong value!! Use Default Mode 1."<<std::endl;
     int uart_mode=1;
+    std::cout<<"If you want to exit, Please input 'exit'."<<std::endl;
     try
     {
       switch (uart_mode)

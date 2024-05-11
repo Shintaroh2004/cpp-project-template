@@ -59,6 +59,7 @@ void uart_ping_pong(serial_port& serial)
     std::string input;
     std::cout<<"input >> ";
     std::cin>>input;
+    std::cout<<"\n";
     input+="\n";
 
     if (input=="exit\n")
@@ -67,12 +68,14 @@ void uart_ping_pong(serial_port& serial)
     }
 
     boost::asio::write(serial, boost::asio::buffer(input));
+    std::cout<<"------------------------------"<<std::endl;
     std::cout<<"Send data: "<<input<<std::endl;
     std::future<void> f = std::async([input,&serial](){
       boost::asio::streambuf buf;
       boost::asio::read(serial,buf,boost::asio::transfer_at_least(1));
       std::string uart(boost::asio::buffer_cast<const char*>(buf.data()));
       std::cout<<"Recieve  : "<<uart<<std::endl;
+      std::cout<<"------------------------------"<<std::endl;
     });
 
     if (f.wait_for(std::chrono::milliseconds(2000)) == std::future_status::timeout)
@@ -112,6 +115,7 @@ void uart_write_only(serial_port& serial)
     std::string input;
     std::cout<<"input >> ";
     std::cin>>input;
+    std::cout<<"\n";
     input+="\n";
 
     if (input=="exit\n")
@@ -119,6 +123,8 @@ void uart_write_only(serial_port& serial)
       break;
     }
     boost::asio::write(serial, boost::asio::buffer(input));
+    std::cout<<"------------------------------"<<std::endl;
     std::cout<<"Send data: "<<input<<std::endl;
+    std::cout<<"------------------------------"<<std::endl;
   }
 }
