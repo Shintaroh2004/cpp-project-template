@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
         std::cout<<"--help -h : Display helps.\n"<<std::endl;
         std::cout<<"[CSV Path]\n"<<std::endl;
         std::cout<<"EX:) Option.csv\n"<<std::endl;
-        std::cout<<"You have to set these headers and data in csv file.\n"<<std::endl;
+        std::cout<<"You have to set these headers and data to csv file.\n"<<std::endl;
         std::cout<<"[Port , Baud Rate , Data Size , Parity , Stop Bit]\n"<<std::endl;
         exit(EXIT_SUCCESS);
       }
