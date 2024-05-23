@@ -7,12 +7,17 @@ project(
     LANGUAGES CXX
 )
 
-include_directories(./include)
+include_directories(
+    ./include
+    ./thirdparty/eigen
+)
 
 add_library(lib STATIC 
     ./src/lib.cpp
     ./src/work2.cpp
     ./src/work3.cpp
+    ./src/work4.cpp
+    ./src/work5.cpp
 )
 
 add_executable(main main.cpp)

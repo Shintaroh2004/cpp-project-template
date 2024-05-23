@@ -1,7 +1,8 @@
 #include <iostream>
-#include "include/work3.hpp"
+#include "include/work5.hpp"
 
 int main(){
-    run3_3();
+    run5_1();
+    run5_2();    
     return 0;
 }
