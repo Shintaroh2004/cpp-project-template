@@ -1,23 +1,9 @@
-#include <iostream>
 #include "../include/lib.hpp"
+#include <imgui.h>
+#include <imgui_impl_sdl3.h>
 
-Person::Person(int age,std::string name)
+void create_window(void)
 {
-    this->age=age;
-    this->name=name;
-}
-
-void Person::hello(void)
-{
-    std::cout<<"hello world"<<std::endl;
-}
-
-void Person::introduce(void)
-{
-    std::cout<<"my name is "<<this->name<<std::endl;
-}
-
-void Person::how_old(void)
-{
-    std::cout<<"I'm "<<this->age<<" years old"<<std::endl;
+    ImGui::Begin("aaaa");
+    ImGui::End();
 }
