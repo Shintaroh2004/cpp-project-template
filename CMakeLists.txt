@@ -8,6 +8,10 @@ project(
     LANGUAGES CXX
 )
 
+# Find OpenCV package
+set (OpenCV_DIR ./thirdparty/opencv/build)
+find_package(OpenCV REQUIRED)
+
 # DLL file list
 set(DLL_FILES  ./thirdparty/SDL/build/Debug/SDL3.dll)
 
