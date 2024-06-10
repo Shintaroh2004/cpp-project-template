@@ -39,4 +39,9 @@ target_link_directories(main PRIVATE ./thirdparty/SDL/build/Debug)
 target_link_libraries(main lib imgui SDL3)
 
 # export DLL files to bin directory
-file(COPY ${DLL_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+message(STATUS "${CMAKE_BUILD_TYPE}")
+if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
+    file(COPY ${DLL_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+else()
+    file(COPY ${DLL_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+endif()
