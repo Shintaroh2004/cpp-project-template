@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_opengl.h>
-#include "include/lib.hpp"
 
 // Main code
 int main()
@@ -20,7 +19,7 @@ int main()
     SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 
     // Create window with SDL_Renderer graphics context
-    Uint32 window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN;
+    Uint32 window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_MAXIMIZED;
     SDL_Window* window = SDL_CreateWindow("Dear ImGui SDL3+SDL_Renderer example", 1280, 720, window_flags);
     if (window == nullptr)
     {
@@ -52,9 +51,6 @@ int main()
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
 
-    // Our state
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
     // Main loop
     bool done = false;
     while (!done)
@@ -79,28 +75,46 @@ int main()
             static float f = 0.0f;
             static int counter = 0;
 
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+            ImGui::Begin("Hello, world!",0,ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoTitleBar); // Create a window called "Hello, world!" and append into it.
+            ImGui::SetWindowPos(ImVec2(0,0));
+            int master_window_x,master_window_y;
+            SDL_GetWindowSize(window,&master_window_x,&master_window_y);
+            ImGui::SetWindowSize(ImVec2(static_cast<float>(master_window_x),static_cast<float>(master_window_y)));
 
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+            if (ImGui::BeginTabBar("MyTabBar")) 
+            {
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+                if (ImGui::BeginTabItem("tab1")) 
+                { 
+                    // switch to the newly selected tab
+                    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
 
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
+                    ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+                    if (ImGui::Button("Button",ImVec2(80,40)))                          // Buttons return true when clicked (most widgets return true when edited/activated)
+                    {
+                        counter++;
+                    }
+
+                    ImGui::SameLine();
+                    ImGui::Text("counter = %d", counter);
+
+                    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+                    ImGui::EndTabItem();
+                }
+
+                if (ImGui::BeginTabItem("tab2")) 
+                { 
+                    // switch to the newly selected tab
+                    ImGui::EndTabItem();
+                }
+                ImGui::EndTabBar();
+            }
+
             ImGui::End();
         }
-
-        create_window();
-
         // Rendering
         ImGui::Render();
-        //SDL_RenderSetScale(renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
-        SDL_SetRenderDrawColorFloat(renderer, clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         SDL_RenderClear(renderer);
         ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
         SDL_RenderPresent(renderer);
