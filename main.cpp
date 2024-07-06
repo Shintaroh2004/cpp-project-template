@@ -1,12 +1,16 @@
 #include <iostream>
-#include "include/work6.hpp"
+#include "include/work9.hpp"
 
-int main(){
-    std::cout<<"課題1"<<std::endl;
-    run6_1();
-    std::cout<<"課題2"<<std::endl;
-    run6_2();
-    std::cout<<"課題3"<<std::endl;
-    run6_3();
+int main()
+{
+    run9_1();
+    std::cout<<"区切り\n";
+    run9_2();
+    std::cout<<"区切り\n";
+    run9_3();
+    std::cout<<"区切り\n";
+    run9_4();
+    std::cout<<"区切り\n";
+    run9_5();
     return 0;
 }

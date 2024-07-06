@@ -19,6 +19,9 @@ add_library(lib STATIC
     ./src/work4.cpp
     ./src/work5.cpp
     ./src/work6.cpp
+    ./src/work7.cpp
+    ./src/work8.cpp
+    ./src/work9.cpp
 )
 
 add_executable(main main.cpp)
