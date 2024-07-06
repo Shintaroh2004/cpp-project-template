@@ -15,7 +15,7 @@ endif()
 
 #Boost用の設定
 add_definitions(-DBOOST_BIND_GLOBAL_PLACEHOLDERS) #プレースホルダーがうるさいのでおまじない
-set (BOOST_ROOT "C:/dev")
+set (BOOST_ROOT "D:/dev")
 find_package(Boost REQUIRED COMPONENTS headers)
 
 #ライブラリビルドとか，インクルードディレクトリとか
