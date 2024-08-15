@@ -1,16 +1,18 @@
 #include <iostream>
-#include "include/work9.hpp"
+#include "include/work11.hpp"
+
+using namespace std;
 
 int main()
 {
-    run9_1();
-    std::cout<<"区切り\n";
-    run9_2();
-    std::cout<<"区切り\n";
-    run9_3();
-    std::cout<<"区切り\n";
-    run9_4();
-    std::cout<<"区切り\n";
-    run9_5();
+    cout<<"hoin"<<endl;
+    run11_1();
+
+    cout<<"midiam"<<endl;
+    run11_2();
+
+    cout<<"runge-4"<<endl;
+    run11_3();
+
     return 0;
 }
