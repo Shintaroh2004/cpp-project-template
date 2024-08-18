@@ -1,3 +1,20 @@
 {
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": [
+    "jsoncpp",
+    "zlib",
+    "openssl",
+    "sqlite3",
+    "libpq",
+    "libpqxx",
+    {
+      "name": "drogon",
+      "features": [
+        "ctl",
+        "sqlite3",
+        "postgres",
+        "orm"
+      ]
+    }
+  ]
 }
