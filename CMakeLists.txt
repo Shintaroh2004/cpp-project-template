@@ -1,15 +1,36 @@
 cmake_minimum_required(VERSION 3.26)
 
 project(
-    cpp_learning
+    cpp_d3d12
     VERSION 1.0.0
-    DESCRIPTION "cpp template project"
+    DESCRIPTION "cpp DirectX12 3D project"
     LANGUAGES CXX
 )
 
-add_library(lib STATIC ./src/lib.cpp)
-target_compile_features(lib PRIVATE cxx_std_20)
-target_include_directories(lib PUBLIC ./include)
+add_library(
+    d3d12_texture STATIC
+    "src/D3D12HelloTexture.cpp"
+    "src/DXSample.cpp"
+    "src/stdafx.cpp"
+    "src/Win32Application.cpp"
+)
+target_include_directories(
+    d3d12_texture PUBLIC
+    "./include"
+    "D:/dev/DirectX-Headers/include"
+    "D:/dev/DirectXTex/include"
+)
+target_link_directories(
+    d3d12_texture PUBLIC
+    "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64"
+)
+target_link_libraries(
+    d3d12_texture PUBLIC
+    d3d12
+    d3dcompiler
+    dxgi
+    dxguid
+)
 
-add_executable(main main.cpp)
-target_link_libraries(main lib)
+add_executable(main WIN32 main.cpp)
+target_link_libraries(main PRIVATE d3d12_texture)
